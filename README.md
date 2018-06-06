@@ -1,2 +1,6 @@
-# stormevents
-A short analysis of storms, https://www.nhc.noaa.gov/climo/
+# Storm Events
+A short analysis of storms.  Original and more information about storms found at the [National Hurricane Center](https://www.nhc.noaa.gov/climo/).
+
+Licenses:
+Code © 2017, Edward A. Roualdes, licensed under BSD-3.
+Text © 2017, Edward A. Roualdes, licensed under [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
