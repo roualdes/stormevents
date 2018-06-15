@@ -1,5 +1,5 @@
 data {
-  int <lower=0> T;
+  int <lower=1> T;
   vector[T] y;
 }
 transformed data {
@@ -9,6 +9,7 @@ parameters {
   vector[T] u_err;
   real<lower=0> u_tau;
   vector[T] v_err;
+  real<lower=0> v_tau;
   real<lower=0> y_err;
 }
 transformed parameters {
@@ -16,7 +17,7 @@ transformed parameters {
   vector[T] v;
 
   u[1] = y[1] + u_tau * u_err[1];
-  v[1] = v_err[1];
+  v[1] = v_tau * v_err[1];
   for (t in 2:T) {
     u[t] = u[t-1] + v[t-1] + u_tau * u_err[t-1];
     v[t] = v[t-1] + v_err[t-1];
@@ -25,8 +26,9 @@ transformed parameters {
 model {
   // priors
   v_err ~ normal(0, 1);
+  v_tau ~ gamma(2, 1);
   u_err ~ normal(0, 1);
-  u_tau ~ normal(0, 10);
+  u_tau ~ gamma(2, .1);
   y_err ~ exponential(1 / sd_y);
 
   // likelihood
