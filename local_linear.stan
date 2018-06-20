@@ -1,6 +1,9 @@
 data {
   int <lower=1> T;
   vector[T] y;
+  real y_scale;
+  real u_scale;
+  real v_scale;
 }
 transformed data {
   real sd_y = sd(y);
@@ -26,10 +29,10 @@ transformed parameters {
 model {
   // priors
   v_err ~ normal(0, 1);
-  v_tau ~ gamma(2, 1);
+  v_tau ~ gamma(2, 1 / v_scale);
   u_err ~ normal(0, 1);
-  u_tau ~ gamma(2, 1);
-  y_err ~ gamma(2, 1 / sd_y);
+  u_tau ~ gamma(2, 1 / u_scale);
+  y_err ~ gamma(2, 1 / (y_scale * sd_y));
 
   // likelihood
   y ~ normal(u, y_err);
