@@ -29,7 +29,7 @@ model {
 
   // priors
   y_err ~ exponential(1 / sd_y);
-  u_err ~ student_t(3, 0, 1);
+  u_err ~ student_t(3, 0, 2.5);
   v_err ~ student_t(3, 0, 1);
   eta ~ student_t(3, 0, 1);
   phi ~ normal(0, 0.5);
